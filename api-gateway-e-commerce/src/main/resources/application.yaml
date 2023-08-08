@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: "lb://user-service"
+          predicates:
+            - Path=/users/**
+          filters:
+            - AuthenticationFilter                            # filter class name
+
+        - id: order-service
+          uri: "lb://order-service"
+          predicates:
+            - Path=/orders/**
+          filters:
+            - AuthenticationFilter
+
+        - id: product-service
+          uri: "lb://product-service"
+          predicates:
+            - Path=/products/**
+          filters:
+            - AuthenticationFilter
+
+        - id: jwt-service
+          uri: "lb://jwt-service"
+          predicates:
+            - Path=/auth/**
